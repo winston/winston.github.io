@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winston's Blueprint</title>
+<meta name="description" content="How I work, decide, communicate, and lead. A practical guide to working together.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1F0E9;
+    --panel:#FBFAF5;
+    --ink:#1A1C21;
+    --ink-soft:#565A62;
+    --ink-faint:#8A8D93;
+    --hair:#D2D0C6;
+    --hair-soft:#E2E0D7;
+    --accent:#2E4C7E;
+    --accent-tint:#DDE3EF;
+    --green:#3F7D53;
+    --amber:#C08A24;
+    --red:#B23A3A;
+    /* mode colours: distinct hues + darker ink versions for legible numerals */
+    --m-lead:#2E4C7E;   --m-lead-ink:#2E4C7E;
+    --m-peer:#4E8A7B;   --m-peer-ink:#376a5e;
+    --m-supp:#CC8A3A;   --m-supp-ink:#9A6420;
+    --measure:56rem;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Spectral',Georgia,'Times New Roman',serif;
+    font-size:18px;
+    line-height:1.72;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  .mono{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;}
+
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;text-underline-offset:3px;}
+
+  .shell{
+    max-width:1320px;
+    margin:0 auto;
+    padding:0 clamp(1.25rem,4vw,3rem);
+  }
+  .layout{display:grid;grid-template-columns:1fr;gap:0;}
+  @media(min-width:1040px){
+    .layout{
+      grid-template-columns:15rem minmax(0,1fr);
+      gap:clamp(2.5rem,5vw,5rem);
+      align-items:start;
+    }
+  }
+
+  .masthead{
+    padding:clamp(3.5rem,9vw,6rem) 0 clamp(2rem,4vw,3rem);
+    border-bottom:1px solid var(--hair);
+    max-width:var(--measure);
+    opacity:0;
+    transform:translateY(10px);
+    animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .kicker{
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1.4rem;display:flex;align-items:center;gap:.75rem;
+  }
+  .kicker::after{content:"";height:1px;flex:1;background:var(--hair);}
+  h1{
+    font-weight:600;font-size:clamp(2.8rem,8vw,4.6rem);
+    line-height:1.02;letter-spacing:-.02em;margin:0 0 1.5rem;
+  }
+  h1 .apos{color:var(--accent);}
+  .lede{
+    font-size:clamp(1.12rem,2.2vw,1.28rem);line-height:1.6;
+    color:var(--ink);margin:0 0 1.1rem;font-weight:300;
+  }
+  .lede.small{font-size:1.02rem;color:var(--ink-soft);line-height:1.65;}
+  .meta{
+    margin-top:2rem;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-faint);display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;
+  }
+  .meta span{display:inline-flex;align-items:center;gap:.55rem;}
+  .meta .tick{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;}
+
+  .rail{display:none;}
+  @media(min-width:1040px){
+    .rail{
+      display:block;position:sticky;top:0;
+      padding-top:clamp(3.5rem,9vw,6rem);max-height:100vh;overflow-y:auto;
+    }
+    .rail-label{
+      font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);
+      margin:0 0 1.2rem;padding-bottom:.7rem;border-bottom:1px solid var(--hair);
+    }
+    .rail ol{list-style:none;margin:0;padding:0;}
+    .rail li{margin:0;}
+    .rail button{
+      display:flex;gap:.7rem;align-items:baseline;width:100%;padding:.42rem 0;
+      background:none;border:0;text-align:left;color:var(--ink-soft);
+      font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.78rem;line-height:1.35;
+      letter-spacing:.01em;transition:color .2s ease;cursor:pointer;-webkit-appearance:none;appearance:none;
+    }
+    .rail button .n{color:var(--ink-faint);font-size:.72rem;min-width:1.4rem;}
+    .rail button:hover{color:var(--ink);}
+    .rail button.is-active{color:var(--accent);}
+    .rail button.is-active .n{color:var(--accent);}
+  }
+
+  .content{max-width:var(--measure);padding-bottom:6rem;}
+
+  section{padding:clamp(2.75rem,6vw,4rem) 0;border-bottom:1px solid var(--hair-soft);}
+  section:last-child{border-bottom:none;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.75rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 1rem;
+    display:flex;align-items:baseline;gap:.7rem;
+  }
+  .eyebrow .num{color:var(--ink-faint);}
+  h2{
+    font-weight:600;font-size:clamp(1.5rem,3.2vw,1.7rem);
+    line-height:1.16;letter-spacing:-.01em;margin:0 0 1.4rem;
+  }
+  p{margin:0 0 1.15rem;}
+  section p:last-child{margin-bottom:0;}
+  strong{font-weight:600;}
+
+  ol.body-list,ul.body-list{margin:0 0 1.15rem;padding-left:0;list-style:none;counter-reset:item;}
+  ol.body-list li{position:relative;padding-left:2.6rem;margin-bottom:.7rem;counter-increment:item;}
+  ol.body-list li::before{
+    content:counter(item);position:absolute;left:0;top:.05em;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.82rem;color:var(--accent);
+    border:1px solid var(--accent-tint);background:var(--panel);
+    width:1.7rem;height:1.7rem;display:flex;align-items:center;justify-content:center;
+    border-radius:50%;line-height:1;
+  }
+  ul.body-list li{position:relative;padding-left:1.5rem;margin-bottom:.5rem;}
+  ul.body-list li::before{
+    content:"";position:absolute;left:.15rem;top:.72em;
+    width:5px;height:5px;border-radius:50%;background:var(--accent);
+  }
+
+  .clause{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.8rem;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
+    margin:2.1rem 0 .7rem;display:flex;align-items:center;gap:.6rem;
+  }
+  .clause::before{content:"";width:1.4rem;height:1px;background:var(--accent);}
+  .clause:first-of-type{margin-top:.4rem;}
+
+  .signal{white-space:nowrap;font-weight:500;}
+  .dot{
+    display:inline-block;width:.62em;height:.62em;border-radius:50%;
+    margin-right:.24em;vertical-align:baseline;position:relative;top:.02em;
+  }
+  .dot.g{background:var(--green);}
+  .dot.a{background:var(--amber);}
+  .dot.r{background:var(--red);}
+
+  /* 40/30/30 modes */
+  .modes{margin:.4rem 0 0;}
+  .modes-bar{
+    display:flex;height:12px;border-radius:99px;overflow:hidden;
+    border:1px solid var(--hair);background:var(--panel);margin-bottom:1.7rem;
+  }
+  .modes-bar span{display:block;height:100%;}
+  .modes-bar .seg-lead{width:40%;background:var(--m-lead);}
+  .modes-bar .seg-peer{width:30%;background:var(--m-peer);}
+  .modes-bar .seg-supp{width:30%;background:var(--m-supp);}
+  .mode{
+    display:grid;grid-template-columns:4.6rem 1fr;gap:1rem;padding:.85rem 0;
+    border-top:1px solid var(--hair-soft);align-items:baseline;
+  }
+  .mode:last-child{border-bottom:1px solid var(--hair-soft);}
+  .mode .pct{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:600;font-size:1.05rem;
+    display:flex;align-items:baseline;gap:.5rem;
+  }
+  .mode .pct::before{
+    content:"";width:.72rem;height:.72rem;border-radius:3px;flex:none;
+    position:relative;top:.06em;
+  }
+  .mode.lead .pct{color:var(--m-lead-ink);}
+  .mode.peer .pct{color:var(--m-peer-ink);}
+  .mode.supp .pct{color:var(--m-supp-ink);}
+  .mode.lead .pct::before{background:var(--m-lead);}
+  .mode.peer .pct::before{background:var(--m-peer);}
+  .mode.supp .pct::before{background:var(--m-supp);}
+  .mode .role{font-weight:600;display:block;margin-bottom:.1rem;}
+  .mode .desc{color:var(--ink-soft);font-size:.98rem;line-height:1.5;}
+
+  footer{
+    max-width:var(--measure);padding:2.5rem 0 5rem;color:var(--ink-faint);
+    font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;letter-spacing:.1em;
+    text-transform:uppercase;display:flex;align-items:center;gap:.75rem;
+  }
+  footer .line{height:1px;flex:1;background:var(--hair);}
+
+  @keyframes rise{to{opacity:1;transform:none;}}
+  @media(prefers-reduced-motion:reduce){
+    .masthead{animation:none;opacity:1;transform:none;}
+    html{scroll-behavior:auto;}
+  }
+  html{scroll-behavior:smooth;}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+
+  @media print{
+    :root{--paper:#fff;}
+    .rail{display:none;}
+    body{font-size:11pt;}
+    section{break-inside:avoid;}
+    .masthead{animation:none;opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="masthead">
+    <p class="kicker mono">Operating Handbook</p>
+    <h1>Winston's <span class="apos">Blueprint</span></h1>
+    <p class="lede">A note to make working together easier.<br>It explains how I work, decide, communicate, and lead.</p>
+    <p class="lede small">I hope this is a practical guide to help us work together with more trust, clarity, and speed.<br>It is also a living document. I expect it to evolve as I grow, learn, and receive feedback.</p>
+    <p class="meta mono">
+      <span><span class="tick"></span>For my team, peers &amp; manager</span>
+      <span><span class="tick"></span>Living document</span>
+      <span><span class="tick"></span>Updated July 2026</span>
+    </p>
+  </header>
+
+  <div class="layout">
+    <nav class="rail" aria-label="Contents">
+      <p class="rail-label">Contents</p>
+      <ol>
+        <li><button type="button" data-target="mission"><span class="n">01</span><span>My Personal Mission</span></button></li>
+        <li><button type="button" data-target="lead"><span class="n">02</span><span>How I Lead</span></button></li>
+        <li><button type="button" data-target="people"><span class="n">03</span><span>People First</span></button></li>
+        <li><button type="button" data-target="trust"><span class="n">04</span><span>How Trust Works</span></button></li>
+        <li><button type="button" data-target="comms"><span class="n">05</span><span>How to Communicate</span></button></li>
+        <li><button type="button" data-target="directness"><span class="n">06</span><span>Directness &amp; Feedback</span></button></li>
+        <li><button type="button" data-target="decisions"><span class="n">07</span><span>Decision-Making</span></button></li>
+        <li><button type="button" data-target="values"><span class="n">08</span><span>What I Value</span></button></li>
+        <li><button type="button" data-target="dislike"><span class="n">09</span><span>What I Dislike</span></button></li>
+      </ol>
+    </nav>
+
+    <main class="content">
+
+      <section id="mission">
+        <p class="eyebrow mono"><span class="num">01</span> My Personal Mission</p>
+        <h2>Build the right things, the right way, with quality and speed.</h2>
+        <p>&ldquo;Right&rdquo; can change based on context, but the essence stays the same:</p>
+        <ul class="body-list">
+          <li>We are solving real problems, not just producing activity.</li>
+          <li>We are thinking from first principles, not blindly following precedent.</li>
+          <li>We are making thoughtful trade-offs, even when the answer is not popular.</li>
+          <li>We are optimising for global maxima, not local maxima.</li>
+        </ul>
+        <p>I also believe quality and speed can coexist:</p>
+        <ul class="body-list">
+          <li>Quality is ultimately measured by user impact.</li>
+          <li>Quality is supported by reliability, security, maintainability, and operational readiness.</li>
+          <li>Speed is not rushing but is choosing the few things that matter and refusing the rest.</li>
+          <li>Speed comes from clarity, focus, simple choices, and ruthless prioritisation.</li>
+        </ul>
+      </section>
+
+      <section id="lead">
+        <p class="eyebrow mono"><span class="num">02</span> How I Lead</p>
+        <h2>I set the pace, and I will bring you along.</h2>
+        <p>I set high standards. I also genuinely care about people. These are not opposites.</p>
+        <p>I will make sure that the mission is clear, and the environment is supportive,<br>for you to do your best work.</p>
+        <p>Depending on what you need, I move between three modes, roughly:</p>
+        <div class="modes">
+          <div class="modes-bar" role="img" aria-label="Roughly 40 percent lead, 30 percent peer, 30 percent support">
+            <span class="seg-lead"></span><span class="seg-peer"></span><span class="seg-supp"></span>
+          </div>
+          <div class="mode lead">
+            <span class="pct mono">40%</span>
+            <span><span class="role">Your Lead</span><span class="desc">Setting direction. Giving feedback. Making the calls only I can make.</span></span>
+          </div>
+          <div class="mode peer">
+            <span class="pct mono">30%</span>
+            <span><span class="role">Your Peer</span><span class="desc">Thinking through the hard problem alongside you.</span></span>
+          </div>
+          <div class="mode supp">
+            <span class="pct mono">30%</span>
+            <span><span class="role">Your Support</span><span class="desc">Learning from your expertise, and supporting your initiatives.</span></span>
+          </div>
+        </div>
+      </section>
+
+      <section id="people">
+        <p class="eyebrow mono"><span class="num">03</span> People First</p>
+        <h2>Family and Health come before work.</h2>
+        <p>I want people to do meaningful work, grow in their craft, and feel proud of what they are building.</p>
+        <p>There will be intense stretches, but I want a culture where burned weekends are not the default.<br>Reduce WTFs as much as we can from Day 1.</p>
+        <p>I care about your growth. I'll push you past what's comfortable, as that's where you learn most.<br>In return, own your development, tell me what you're reaching for, and I'll support you.</p>
+      </section>
+
+      <section id="trust">
+        <p class="eyebrow mono"><span class="num">04</span> How Trust Works With Me</p>
+        <h2>I start with positive intent.</h2>
+        <p>I assume people are trying to do good work.</p>
+        <p>I do not expect perfection. I do expect honesty, ownership, and learning.</p>
+        <p>Trust grows when you:</p>
+        <ul class="body-list">
+          <li>Demonstrate your clarity of thought</li>
+          <li>Think from 1st principles and next-order effects</li>
+          <li>Own the outcome with great follow-through</li>
+          <li>Optimise beyond your own area</li>
+        </ul>
+        <p>Trust reduces when the opposite happens.</p>
+        <p>With greater trust comes greater autonomy.</p>
+        <p>I do not need to be involved in every detail when I know the outcome is in good hands.</p>
+      </section>
+
+      <section id="comms">
+        <p class="eyebrow mono"><span class="num">05</span> How to Communicate With Me</p>
+        <h2>Clarity is a courtesy. Breadcrumb early.</h2>
+
+        <p class="clause">Write. Async.</p>
+        <p>Achieving clarity of thought is important, and you can only do that when you sit down and write.</p>
+        <p>Meetings are for deciding/aligning, not for updates that can be done through a Slack message.</p>
+
+        <p class="clause">Be Open</p>
+        <p>Push updates often. Don't worry about spamming my inbox. That's on me to manage.</p>
+        <p>I prefer comms in the open, so we can build a shared consciousness for the entire organisation.</p>
+
+        <p class="clause">Good Update</p>
+        <p>A good update usually tells me:</p>
+        <ul class="body-list">
+          <li>What is happening.</li>
+          <li>Why it matters.</li>
+          <li>What decision or help is needed.</li>
+          <li>What options were considered.</li>
+          <li>What you recommend.</li>
+          <li>What risks or trade-offs I should know.</li>
+        </ul>
+        <p>Bring me your read of the situation. I may not always agree, but I will appreciate the ownership.</p>
+
+        <p class="clause">Traffic Lights</p>
+        <p>Use traffic lights for status. <span class="signal"><span class="dot g"></span>Green</span> / <span class="signal"><span class="dot a"></span>Amber</span> / <span class="signal"><span class="dot r"></span>Red</span>, then the detail.</p>
+        <p>Do not sugarcoat. Be honest with the status or the evaluation.</p>
+
+        <p class="clause">Early Warning &amp; Clean Escalations</p>
+        <p>Give me early warning as soon as you smell trouble, so that we can resolve issues quickly.</p>
+        <p>I will be assured when you say &ldquo;I've got this, but I wanted to let you know early.&rdquo;</p>
+        <p>It's ok to do a clean escalation to move things along. Don't wait too long.</p>
+        <p>Make use of my role/position to help make progress.</p>
+
+        <p class="clause">I Work Odd Hours</p>
+        <p>I may Slack you at odd hours. That's my personal schedule.</p>
+        <p>Unless I say it is urgent, please only reply during office hours.</p>
+      </section>
+
+      <section id="directness">
+        <p class="eyebrow mono"><span class="num">06</span> Directness and Feedback</p>
+        <h2>I am direct because ambiguity is expensive.</h2>
+        <p>If I disagree, I will try to say so clearly.<br>If I think something is not yet good enough, I will try to explain why.<br>If I ask hard questions, it is usually because I am testing the thinking, not attacking the person.</p>
+        <p>At the same time, directness should never become disrespect.<br>Care and challenge must go together.</p>
+        <p>I also want feedback from you.<br>If I am unclear, wrong, moving too fast, creating confusion, or missing context, tell me.<br>I may not always react perfectly in the moment, but I will take it seriously.</p>
+        <p>Questioning attitude is better than blind obedience.</p>
+      </section>
+
+      <section id="decisions">
+        <p class="eyebrow mono"><span class="num">07</span> Decision-Making</p>
+        <h2>A clear decision beats prolonged indecision.</h2>
+        <p>I value good decision-making, but I do not expect perfect decision-making.</p>
+        <p>Good decisions require judgment, context, trade-offs, and timing.<br>Sometimes the cost of waiting is higher than the cost of being wrong.</p>
+        <p>I prefer a clear decision with ownership over prolonged indecision.<br>When a decision is reversible, we should move faster, learn, and adjust.<br>When a decision is hard to reverse, we should slow down enough to understand the risks.</p>
+        <p>Have strong opinions, loosely held.<br>Argue for what you believe, but be willing to change your mind when the facts or context change.</p>
+      </section>
+
+      <section id="values">
+        <p class="eyebrow mono"><span class="num">08</span> What I Value</p>
+        <h2>Winning as a Team. Growing as an Individual.</h2>
+        <p>I value <strong>teamwork</strong>. We succeed as a team, not as isolated individuals.</p>
+        <p>I value <strong>ownership and accountability</strong>. Own the outcome, and your mistakes. Learn, and move forward.</p>
+        <p>I value <strong>craft</strong>. Keep improving the quality of your thinking and your work.</p>
+        <p>I value <strong>intellectual humility</strong>. Be confident, but stay open.</p>
+        <p>I value <strong>continuous improvement</strong>. Leave things better than you found them.</p>
+        <p>I value <strong>respectful challenge</strong>. The best ideas should win, not the most senior voice.</p>
+      </section>
+
+      <section id="dislike">
+        <p class="eyebrow mono"><span class="num">09</span> What I Dislike</p>
+        <h2>Red flags that slow us down.</h2>
+        <p>I dislike <strong>net-negative behaviour</strong>: disrespect, politics, drama, or behaviour that drains the team.</p>
+        <p>I dislike <strong>long meetings</strong> without clear decisions or outcomes.</p>
+        <p>I dislike <strong>unnecessary acronyms and jargon</strong>.</p>
+        <p>I dislike being called <strong>&ldquo;Boss&rdquo;</strong>. Please call me Winston.</p>
+      </section>
+
+      <footer class="mono">
+        <span>Winston's Blueprint</span>
+        <span class="line"></span>
+        <span>A living document</span>
+      </footer>
+
+    </main>
+  </div>
+</div>
+
+<script>
+  (function(){
+    try{
+      var links = Array.prototype.slice.call(document.querySelectorAll('.rail button'));
+      var map = {};
+      links.forEach(function(a){
+        var id = a.getAttribute('data-target');
+        map[id] = a;
+        a.addEventListener('click', function(){
+          var target = document.getElementById(id);
+          if(target){
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+          }
+        });
+      });
+      var sections = Array.prototype.slice.call(document.querySelectorAll('main section'));
+      if(!('IntersectionObserver' in window) || !sections.length) return;
+      var current = null;
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            if(current) current.classList.remove('is-active');
+            var a = map[e.target.id];
+            if(a){ a.classList.add('is-active'); current = a; }
+          }
+        });
+      }, { rootMargin:'-15% 0px -70% 0px', threshold:0 });
+      sections.forEach(function(s){ io.observe(s); });
+    }catch(err){/* progressive enhancement only */}
+  })();
+</script>
+</body>
+</html>
