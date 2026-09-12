@@ -107,6 +107,10 @@
     font-size:clamp(1.02rem,2.2vw,1.15rem);color:var(--ink-soft);
     font-weight:300;margin:0 0 1.3rem;
   }
+  .role-break{display:none;}
+  @media(max-width:480px){
+    .role-break{display:block;}
+  }
   .contact{
     display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;
     font-size:.82rem;color:var(--ink-soft);
@@ -235,7 +239,7 @@
   <header class="masthead">
     <p class="kicker mono">Executive Resume</p>
     <h1>Teo Yong Wei, Winston</h1>
-    <p class="role">Product &amp; Technology Executive | Platform Leadership at Scale</p>
+    <p class="role">Product &amp; Technology Executive | <br class="role-break">Platform Leadership at Scale</p>
     <p class="contact mono">
       <span><span class="tick"></span>Singapore</span>
       <span><span class="tick"></span>+65 9437 1845</span>
