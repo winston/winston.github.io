@@ -152,13 +152,19 @@
 
   /* ---------- skills ---------- */
   .skills{
-    display:flex;flex-wrap:wrap;gap:.55rem;margin:0;padding:0;list-style:none;
+    list-style:none;margin:0;padding:0;
+    display:grid;grid-template-columns:1fr;gap:.6rem 2.5rem;
+  }
+  @media(min-width:640px){
+    .skills{grid-template-columns:1fr 1fr;}
   }
   .skills li{
-    font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;
-    letter-spacing:.03em;color:var(--ink);
-    background:var(--panel);border:1px solid var(--hair);
-    padding:.4rem .75rem;border-radius:99px;
+    position:relative;padding-left:1.4rem;
+    font-size:.98rem;line-height:1.48;color:var(--ink);
+  }
+  .skills li::before{
+    content:"";position:absolute;left:.1rem;top:.62em;
+    width:5px;height:5px;border-radius:50%;background:var(--accent);
   }
 
   footer{
@@ -191,7 +197,8 @@
     .entry-title{font-size:10.3pt;}
     .entry-date{font-size:8pt;}
     ul.body-list li{margin-bottom:.28rem;}
-    .skills li{border:1px solid #ccc;background:#fff;padding:.28rem .55rem;font-size:8pt;}
+    .skills{gap:.3rem 2rem;}
+    .skills li{font-size:8.6pt;padding-left:1.1rem;}
     footer{display:none;}
     a{color:var(--ink);text-decoration:none;}
   }
@@ -323,7 +330,7 @@
 
     <section id="skills">
       <p class="eyebrow mono"><span class="num">04</span> Key Skills &amp; Competencies</p>
-      <ul class="skills mono">
+      <ul class="skills">
         <li>Cross-Functional Divisional Leadership (Product, Engineering, Design, Security, Governance, Trust &amp; Safety)</li>
         <li>Organisational Design &amp; Operating Model Reset</li>
         <li>Strategic Leadership &amp; Team Building</li>
