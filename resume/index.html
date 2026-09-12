@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winston Teo &mdash; R&eacute;sum&eacute;</title>
+<meta name="description" content="Executive r&eacute;sum&eacute; of Winston Teo Yong Wei &mdash; technology executive with 15+ years building and leading engineering teams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1F0E9;
+    --panel:#FBFAF5;
+    --ink:#1A1C21;
+    --ink-soft:#565A62;
+    --ink-faint:#8A8D93;
+    --hair:#D2D0C6;
+    --hair-soft:#E2E0D7;
+    --accent:#2E4C7E;
+    --accent-tint:#DDE3EF;
+    --measure:44rem;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Spectral',Georgia,'Times New Roman',serif;
+    font-size:17px;
+    line-height:1.62;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  .mono{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;}
+
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;text-underline-offset:3px;}
+
+  .shell{
+    max-width:var(--measure);
+    margin:0 auto;
+    padding:0 clamp(1.25rem,4vw,2rem);
+  }
+
+  /* ---------- print bar ---------- */
+  .printbar{
+    position:sticky;top:0;z-index:10;
+    background:var(--paper);
+    border-bottom:1px solid var(--hair);
+  }
+  .printbar-inner{
+    max-width:var(--measure);margin:0 auto;
+    padding:.9rem clamp(1.25rem,4vw,2rem);
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  }
+  .printbar a.back{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .printbar a.back:hover{color:var(--accent);}
+  .print-btn{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.76rem;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--panel);
+    background:var(--accent);border:1px solid var(--accent);
+    padding:.55rem 1.1rem;border-radius:3px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:.55rem;
+    transition:opacity .15s ease;
+  }
+  .print-btn:hover{opacity:.85;}
+  .print-btn svg{width:14px;height:14px;flex:none;}
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    padding:clamp(2.6rem,7vw,3.6rem) 0 clamp(1.6rem,4vw,2.2rem);
+    border-bottom:1px solid var(--hair);
+    opacity:0;transform:translateY(8px);
+    animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .kicker{
+    font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1.1rem;display:flex;align-items:center;gap:.7rem;
+  }
+  .kicker::after{content:"";height:1px;flex:1;background:var(--hair);}
+  h1{
+    font-weight:600;font-size:clamp(2.1rem,6vw,2.9rem);
+    line-height:1.05;letter-spacing:-.02em;margin:0 0 .5rem;
+  }
+  .role{
+    font-size:clamp(1.02rem,2.2vw,1.15rem);color:var(--ink-soft);
+    font-weight:300;margin:0 0 1.3rem;
+  }
+  .contact{
+    display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;
+    font-size:.82rem;color:var(--ink-soft);
+  }
+  .contact span{display:inline-flex;align-items:center;gap:.5rem;}
+  .contact .tick{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block;}
+  .contact a{color:var(--ink-soft);}
+  .contact a:hover{color:var(--accent);}
+
+  /* ---------- sections ---------- */
+  .content{padding-bottom:4rem;}
+  section{padding:clamp(1.9rem,4vw,2.4rem) 0;border-bottom:1px solid var(--hair-soft);}
+  section:last-child{border-bottom:none;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 1rem;
+    display:flex;align-items:baseline;gap:.7rem;
+  }
+  .eyebrow .num{color:var(--ink-faint);}
+  p{margin:0 0 1rem;}
+  section p:last-child{margin-bottom:0;}
+  strong{font-weight:600;}
+
+  ul.body-list{margin:0 0 1rem;padding-left:0;list-style:none;}
+  ul.body-list li{position:relative;padding-left:1.4rem;margin-bottom:.5rem;}
+  ul.body-list li::before{
+    content:"";position:absolute;left:.1rem;top:.68em;
+    width:5px;height:5px;border-radius:50%;background:var(--accent);
+  }
+  ul.body-list li:last-child{margin-bottom:0;}
+
+  /* ---------- role entries ---------- */
+  .entry{margin:0 0 2rem;}
+  .entry:last-child{margin-bottom:0;}
+  .entry-head{
+    display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+    gap:.3rem 1rem;margin-bottom:.15rem;
+  }
+  .entry-title{font-weight:600;font-size:1.05rem;}
+  .entry-title .co{color:var(--accent);}
+  .entry-date{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;
+    letter-spacing:.03em;color:var(--ink-faint);white-space:nowrap;
+  }
+  .entry ul.body-list{margin-top:.7rem;}
+  .entry .clients{
+    font-size:.85rem;color:var(--ink-faint);margin:.35rem 0 .6rem 1.4rem;
+  }
+
+  .note{
+    font-style:italic;color:var(--ink-soft);font-size:.94rem;
+    border-left:2px solid var(--hair);padding-left:1rem;margin:0;
+  }
+
+  /* ---------- skills ---------- */
+  .skills{
+    display:flex;flex-wrap:wrap;gap:.55rem;margin:0;padding:0;list-style:none;
+  }
+  .skills li{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.74rem;
+    letter-spacing:.03em;color:var(--ink);
+    background:var(--panel);border:1px solid var(--hair);
+    padding:.4rem .75rem;border-radius:99px;
+  }
+
+  footer{
+    padding:2rem 0 3.5rem;color:var(--ink-faint);
+    font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.1em;
+    text-transform:uppercase;display:flex;align-items:center;gap:.75rem;
+  }
+  footer .line{height:1px;flex:1;background:var(--hair);}
+
+  @keyframes rise{to{opacity:1;transform:none;}}
+  @media(prefers-reduced-motion:reduce){
+    .masthead{animation:none;opacity:1;transform:none;}
+  }
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+
+  /* ---------- print ---------- */
+  @media print{
+    @page{margin:.55in .6in;}
+    html,body{background:#fff;}
+    :root{--paper:#fff;--panel:#fff;}
+    body{font-size:10.3pt;line-height:1.42;}
+    .printbar{display:none;}
+    .masthead{animation:none;opacity:1;transform:none;padding:0 0 .9rem;}
+    h1{font-size:19pt;}
+    .role{font-size:11pt;margin-bottom:.7rem;}
+    .contact{font-size:8.6pt;}
+    section{padding:.85rem 0;break-inside:avoid;}
+    .entry{margin-bottom:1rem;break-inside:avoid;}
+    .eyebrow{font-size:8pt;margin-bottom:.6rem;}
+    .entry-title{font-size:10.3pt;}
+    .entry-date{font-size:8pt;}
+    ul.body-list li{margin-bottom:.28rem;}
+    .skills li{border:1px solid #ccc;background:#fff;padding:.28rem .55rem;font-size:8pt;}
+    footer{display:none;}
+    a{color:var(--ink);text-decoration:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="printbar">
+  <div class="printbar-inner">
+    <a class="back mono" href="/">&larr; winstonyw.com</a>
+    <button class="print-btn mono" type="button" onclick="window.print()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+      Print / Save as PDF
+    </button>
+  </div>
+</div>
+
+<div class="shell">
+  <header class="masthead">
+    <p class="kicker mono">Executive R&eacute;sum&eacute;</p>
+    <h1>Teo Yong Wei, Winston</h1>
+    <p class="role">Technology Executive &mdash; Engineering Leadership, Platform &amp; Infrastructure</p>
+    <p class="contact mono">
+      <span><span class="tick"></span>Singapore</span>
+      <span><span class="tick"></span>+65 9437 1845</span>
+      <span><span class="tick"></span><a href="mailto:winston.yongwei@gmail.com">winston.yongwei@gmail.com</a></span>
+    </p>
+  </header>
+
+  <main class="content">
+
+    <section id="summary">
+      <p class="eyebrow mono"><span class="num">01</span> Executive Summary</p>
+      <p>I see chaos as opportunities, and I thrive in solving challenging problems.</p>
+      <p>Seasoned technology executive with over 15 years of experience in building and leading high-performing teams in the technology industry, across diverse regions.</p>
+      <p>Proven leadership in spearheading digital transformation and managing software engineering within large-scale, distributed environments.</p>
+      <p>Excel in driving system operations towards greater efficiency, resilience, and innovation, ensuring that technology strategies are aligned seamlessly with strategic business objectives.</p>
+    </section>
+
+    <section id="experience">
+      <p class="eyebrow mono"><span class="num">02</span> Professional Experience</p>
+
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Head of Ads Platform Infra, <span class="co">Shopify</span></span>
+          <span class="entry-date mono">Aug 2019 &ndash; Present</span>
+        </div>
+        <ul class="body-list">
+          <li>Established and led Shopify's first engineering hub in Singapore, scaling the team from inception to a peak of 35 developers across APAC and NA.</li>
+          <li>Started as Head of INTL Eng (APAC), and led product localization efforts in China, overseeing the successful implementation of a China CDN to optimize for China traffic, and customized checkout localization for the Chinese market.</li>
+          <li>Led Marketplaces App, Governance, and Delivery teams across APAC and NA in 2021, building and maintaining Shopify's Facebook and Google commerce app integrations, establishing a robust governance framework to manage marketplaces&rsquo; access to data, and ensuring accurate orders integration with marketplaces to facilitate an efficient online selling experience for merchants.</li>
+          <li>Led Ads platform teams for Shopify Audiences, managing integrations to ad platforms, overseeing audience generation/refresh and data ingestion for analytical purposes, ensuring merchants are able to generate more sales through more accurate targeting.</li>
+          <li>Implemented robust operational procedures, and comprehensive observability practices to ensure resiliency and allow for proactive discovery and resolution of potential issues for all systems under our ownership.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Director, <span class="co">SP Group Ltd</span></span>
+          <span class="entry-date mono">Aug 2016 &ndash; Jul 2019</span>
+        </div>
+        <ul class="body-list">
+          <li>Hired as a pioneer executive member of the SP Digital team to run digital transformation at SP Group, and successfully established SP Digital as the technical arm of SP Group, providing SP Group with in-house development capability.</li>
+          <li>Devised the recruitment and hiring strategy and process for SP Digital, resulting in the growth of the team from 10 to 120 Software Engineers within just 2 years.</li>
+          <li>Led the Engineering Excellence team and established group practices, culture and tools impacting project management, engineering excellence, and development experiences that ensured systems are built with speed, quality and high service reliability.</li>
+          <li>Mentored the SP Digital team in Agile practices to improve engineering effectiveness.</li>
+          <li>Orchestrated the overhaul of the SP mobile app, directing a team of over 80 engineers across iOS, Android, and web platforms, achieving a relaunch within a record-breaking 6-month timeframe.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Founder / Consulting CTO, <span class="co">Jolly Good Code</span></span>
+          <span class="entry-date mono">Dec 2013 &ndash; Jul 2019</span>
+        </div>
+        <ul class="body-list">
+          <li>Founded a software consultancy renowned for the rapid development of Ruby systems through the implementation of Agile software engineering methodologies.
+            <div class="clients">Clients: ShopVenture, The Commissioned, Hock Cheong Logistics.</div>
+          </li>
+          <li>Delivered Consulting CTO services, offering evaluation and training for new engineers, along with consultation and coaching in Agile practices, such as CI/CD.
+            <div class="clients">Clients: Roomorama, Kaligo, Carousell, IDA, NUS ISS, MOE.</div>
+          </li>
+          <li>Conducted Ruby and Ruby on Rails classes for corporate clients and the public.
+            <div class="clients">Clients: NCS, SPC, AlphaCamp.</div>
+          </li>
+          <li>Conceptualized and developed <strong>deppbot</strong> &ndash; a SaaS competitor to (GitHub&rsquo;s) Dependabot that provides automated security and bundler updates for Ruby applications through GitHub Pull Requests, which peaked at hundreds of paid users.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Senior Software Engineer, <span class="co">Pivotal Labs / Neo Innovations</span></span>
+          <span class="entry-date mono">Nov 2010 &ndash; Oct 2013</span>
+        </div>
+        <ul class="body-list">
+          <li>Led projects and engineering teams using Agile software engineering practices, enhancing software quality with pair programming, test-driven development, and continuous integration/deployment.</li>
+          <li>Engineered and deployed robust, scalable web applications for high-traffic clients, including Viki.com and Friendster.com, among others.</li>
+        </ul>
+      </div>
+
+      <p class="note">Extensive professional experience in leadership and technology roles dating back to prior 2010, including leading software development projects and database administration at IBM and various start-ups.</p>
+    </section>
+
+    <section id="education">
+      <p class="eyebrow mono"><span class="num">03</span> Education</p>
+      <div class="entry" style="margin-bottom:0;">
+        <div class="entry-head">
+          <span class="entry-title">B.Comp. (Hons, 2nd Upper), Computer Science</span>
+        </div>
+        <p style="color:var(--ink-soft);margin:0;">National University of Singapore</p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <p class="eyebrow mono"><span class="num">04</span> Key Skills &amp; Competencies</p>
+      <ul class="skills mono">
+        <li>Digital Transformation &amp; Change Management</li>
+        <li>Agile Software Development &amp; Coaching</li>
+        <li>Strategic Leadership &amp; Team Building</li>
+        <li>Site Reliability Engineering (SRE) &amp; DevOps</li>
+        <li>Monitoring &amp; Incident Management</li>
+        <li>High-scale, Performance Systems Management</li>
+        <li>Cloud Infrastructure &amp; Architecture</li>
+      </ul>
+    </section>
+
+    <footer class="mono">
+      <span>Winston Teo &mdash; R&eacute;sum&eacute;</span>
+      <span class="line"></span>
+      <span>Updated September 2026</span>
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>
